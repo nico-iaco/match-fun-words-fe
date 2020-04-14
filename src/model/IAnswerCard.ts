@@ -1,4 +1,4 @@
 export interface IAnswerCard {
-    answer: string,
-    playerId: string
+    text: string,
+    playerId: (string | null)
 }

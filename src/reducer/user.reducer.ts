@@ -20,6 +20,11 @@ export const userReducer = (state: IUser = defaultUserState, action: any) => {
             return {
                 ...defaultUserState
             };
+        case "CHANGE_ROLE":
+            return {
+                ...state,
+                role: action.role
+            }
         default:
             return {
                 ...state
