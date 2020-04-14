@@ -1,0 +1,16 @@
+.header {
+    display: flex;
+    font-size: 40px;
+    font-weight: bolder;
+    width: auto;
+}
+
+.rainbow-text {
+    background-image: linear-gradient(to left, violet, indigo, blue, green, orange, red);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.div-title {
+    flex-grow: 10;
+}
