@@ -22,6 +22,7 @@ const Login: React.FC = () => {
                 const body : IUser = response.data;
                 if (body != null) {
                     console.log(body);
+                    localStorage.setItem("jwt", body.jwt)
                     dispatch(login(body));
                     history.push("/dashboard")
                 }

@@ -3,5 +3,7 @@ export default {
     "USER_BASE": "/user",
     "LOGIN": "/login",
     "REGISTER": "/register",
-    "LOGOUT": "/logout",
+    "MATCH_BASE": "/match",
+    "CREATE_MATCH": "/",
+    "JOIN_MATCH": "/join"
 }

@@ -7,11 +7,14 @@ import RegistrationPage from "./component/RegistrationPage";
 import DashboardPage from "./component/DashboardPage";
 import {ProtectedRoute} from "./component/ProtectedRoute";
 import {useSelector} from "react-redux";
+import {getUsername} from "./selector/user.selector";
+import GamePage from "./component/GamePage";
+import JoinMatchPage from "./component/JoinMatchPage";
 
 
 const App: React.FC = () => {
 
-    const username = useSelector((state: any) => state.user.username);
+    const username = useSelector(getUsername);
 
     return (
         <div className="App">
@@ -26,7 +29,9 @@ const App: React.FC = () => {
                     <Route path={"/register"} exact>
                         <RegistrationPage/>
                     </Route>
-                    <ProtectedRoute isAuthenticated={username !== ""} exact={true} path={"/dashboard"} authenticationPath={"/login"} component={DashboardPage} />
+                    <ProtectedRoute isAuthenticated={username !== ""} authenticationPath={"/login"} exact={true} path={"/dashboard"} component={DashboardPage} />
+                    <ProtectedRoute isAuthenticated={username !== ""} authenticationPath={"/login"} exact={true} path={"/match/:matchId"} component={GamePage} />
+                    <ProtectedRoute isAuthenticated={username !== ""} authenticationPath={"/login"} exact={true} path={"/join"} component={JoinMatchPage} />
                 </Switch>
             </Router>
         </div>
