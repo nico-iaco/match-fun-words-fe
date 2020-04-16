@@ -14,7 +14,7 @@ export const answerReducer = (state: IAnswerCard[] = defaultAnswerState, action:
             ]
         case "DELETE":
             return [
-                ...state.filter(value => value !== action.answer)
+                ...state.filter(value => value.text !== action.answer.text)
             ]
         default:
             return [
