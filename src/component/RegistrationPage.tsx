@@ -31,7 +31,6 @@ const RegistrationPage: React.FC = () => {
             .then(response => {
                 const successful: boolean = response.data;
                 console.log(successful);
-                //TODO: Far uscire un toast con l'esito della registrazione
                 setSnackbarEnabled(() => true);
                 setRegistrationSuccess(successful);
 
