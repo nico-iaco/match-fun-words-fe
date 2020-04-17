@@ -7,6 +7,7 @@ import {useDispatch} from "react-redux";
 import {changeRole} from "../action/user.action";
 import {IQuestionCard} from "../model/IQuestionCard";
 import {getJudgeCard} from "../api/MatchApi";
+import {Button, Dialog, DialogTitle} from "@material-ui/core";
 
 interface JudgeProps extends PropsWithChildren<any> {
     matchId: string,
@@ -15,9 +16,10 @@ interface JudgeProps extends PropsWithChildren<any> {
 
 const JudgeView: React.FC<JudgeProps> = ({matchId, client}) => {
 
-    const [judgeCard, setJudgeCard] = useState<IQuestionCard>()
+    const [judgeCard, setJudgeCard] = useState<IQuestionCard>();
     const [answers, setAnswers] = useState<IAnswerCard[]>([]);
     const [subscriptionId, setSubscriptionId] = useState("")
+    const [roundFinished, setRoundFinished] = useState(false);
     const dispatch = useDispatch()
 
 
@@ -40,13 +42,16 @@ const JudgeView: React.FC<JudgeProps> = ({matchId, client}) => {
         }
     }, [matchId, client.connected])
 
+    const finishRound = () => {
+        client.disconnect(() => console.log("Websocket disconnected"));
+        dispatch(changeRole(PlayerRole.PLAYER));
+    }
 
     const choosePlayerCard = (card: IAnswerCard) => {
         console.log(card);
         client.send(`/app/match/${matchId}/judge/choose`, {}, JSON.stringify(card));
-        dispatch(changeRole(PlayerRole.PLAYER));
         client.unsubscribe(subscriptionId);
-        client.disconnect(() => console.log("Websocket disconnected"));
+        setRoundFinished(true);
     }
 
     return (
@@ -67,6 +72,18 @@ const JudgeView: React.FC<JudgeProps> = ({matchId, client}) => {
                                                                buttonFunction={() => choosePlayerCard(value)}/>)) :
                     <div/>
             }
+            <Dialog onClose={() => {
+            }} aria-labelledby="simple-dialog-title" open={roundFinished}>
+                <DialogTitle id="simple-dialog-title">Waiting for other player</DialogTitle>
+                <div>
+                    Vai al prossimo round <br/>
+                    <Button
+                        size={"small"}
+                        variant={"outlined"}
+                        onClick={finishRound}
+                        color={"primary"}>Next round</Button>
+                </div>
+            </Dialog>
         </div>
     )
 }
