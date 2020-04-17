@@ -5,7 +5,7 @@ import {IAnswerCard} from "../model/IAnswerCard";
 import {getUsername} from "../selector/user.selector";
 import {AnswerCard} from "./AnswerCard";
 import {PlayerRole} from "../model/PlayerRole";
-import Stomp, {Client} from 'stompjs';
+import {Client} from 'stompjs';
 import {changeRole} from "../action/user.action";
 import {deleteAnswer, newAnswer} from "../action/answer.action";
 

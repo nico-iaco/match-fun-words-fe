@@ -1,5 +1,5 @@
 import React, {PropsWithChildren, useEffect, useState} from "react";
-import Stomp, {Client} from "stompjs";
+import {Client} from "stompjs";
 import {IAnswerCard} from "../model/IAnswerCard";
 import {AnswerCard} from "./AnswerCard";
 import {PlayerRole} from "../model/PlayerRole";
@@ -21,15 +21,16 @@ const JudgeView: React.FC<JudgeProps> = ({matchId, client}) => {
     const dispatch = useDispatch()
 
 
-
-
     useEffect(() => {
         getJudgeCard(matchId)
             .then(response => {
                 setJudgeCard(() => response.data);
             })
             .catch(reason => console.log(reason))
+    }, [matchId])
 
+
+    useEffect(() => {
         if (client.connected) {
             const {id} = client.subscribe(`/game/judge/${matchId}`, message => {
                 const answerReceived: IAnswerCard = JSON.parse(message.body);
