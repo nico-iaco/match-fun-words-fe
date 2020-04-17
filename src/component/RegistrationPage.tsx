@@ -1,10 +1,11 @@
 import React, {useState} from "react";
-import {Container, TextField} from "@material-ui/core";
+import {Container, Snackbar, TextField} from "@material-ui/core";
 import {Header} from "./Header";
 import {IUserRegister} from "../model/IUserRegister";
 import Button from "@material-ui/core/Button";
 import {registerRequest} from "../api/UserApi";
 import { useHistory } from "react-router-dom";
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 
 const defaultUser: IUserRegister = {
     email: "",
@@ -14,9 +15,15 @@ const defaultUser: IUserRegister = {
     username: ""
 }
 
+const Alert = (props: AlertProps) => {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 const RegistrationPage: React.FC = () => {
 
     const [user, setUser] = useState<IUserRegister>(defaultUser);
+    const [snackbarEnabled, setSnackbarEnabled] = useState<boolean>(false);
+    const [registrationSuccess, setRegistrationSuccess] = useState(false);
     const history = useHistory();
 
     const doRegister = () => {
@@ -25,8 +32,18 @@ const RegistrationPage: React.FC = () => {
                 const successful: boolean = response.data;
                 console.log(successful);
                 //TODO: Far uscire un toast con l'esito della registrazione
-                history.push("/")
+                setSnackbarEnabled(() => true);
+                setRegistrationSuccess(successful);
+
+
             })
+    }
+
+    const handleClose = () => {
+        setSnackbarEnabled(() => false);
+        if (registrationSuccess) {
+            history.push("/");
+        }
     }
 
     return (
@@ -101,6 +118,15 @@ const RegistrationPage: React.FC = () => {
                 color={"primary"}>
                 Register
             </Button>
+            <Snackbar open={snackbarEnabled} autoHideDuration={3000} onClose={handleClose}>
+            <Alert severity={registrationSuccess ? "success" : "error"}>
+                {
+                    registrationSuccess ?
+                        "Registrazione effettuata con successo" :
+                        "Registrazione non andata a buon fine"
+                }
+            </Alert>
+        </Snackbar>
         </Container>
     )
 }
