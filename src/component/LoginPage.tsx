@@ -80,7 +80,7 @@ const LoginPage: React.FC = () => {
                 </Button>
                 <br/><br/>
                 <div className={"redirect-register-div"}>
-                    <p>New user?</p>
+                    New user?<br/>
                     <b><Link to={"/register"}>Register now!</Link></b>
                 </div>
             </div>

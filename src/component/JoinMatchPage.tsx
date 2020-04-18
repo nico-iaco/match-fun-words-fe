@@ -8,7 +8,6 @@ import {useDispatch} from "react-redux";
 import {changeRole} from "../action/user.action";
 import {PlayerRole} from "../model/PlayerRole";
 import {Header} from "./Header";
-import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import {VideogameAsset} from "@material-ui/icons";
 
 const JoinMatchPage: React.FC = () => {
