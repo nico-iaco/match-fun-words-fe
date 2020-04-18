@@ -1,8 +1,7 @@
 import React from 'react';
 import './css/App.css';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import {EntryComponent} from "./component/EntryComponent";
-import Login from "./component/LoginPage";
+import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
+import LoginPage from "./component/LoginPage";
 import RegistrationPage from "./component/RegistrationPage";
 import DashboardPage from "./component/DashboardPage";
 import {ProtectedRoute} from "./component/ProtectedRoute";
@@ -21,10 +20,10 @@ const App: React.FC = () => {
             <Router>
                 <Switch>
                     <Route path={"/"} exact>
-                        <EntryComponent/>
+                        <Redirect to={"/login"}/>
                     </Route>
                     <Route path={"/login"} exact>
-                        <Login/>
+                        <LoginPage/>
                     </Route>
                     <Route path={"/register"} exact>
                         <RegistrationPage/>
