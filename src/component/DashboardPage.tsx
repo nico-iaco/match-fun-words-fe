@@ -1,13 +1,14 @@
 import React from "react";
-import {Container} from "@material-ui/core";
+import {Button, Container} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import {getUsername} from "../selector/user.selector";
 import {createMatch, getInitialCard} from "../api/MatchApi";
-import {Link, useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import {changeRole} from "../action/user.action";
 import {PlayerRole} from "../model/PlayerRole";
 import {IAnswerCard} from "../model/IAnswerCard";
 import {initList} from "../action/answer.action";
+import {Header} from "./Header";
 
 const DashboardPage: React.FC = () => {
 
@@ -32,14 +33,18 @@ const DashboardPage: React.FC = () => {
             .catch(reason => console.log(reason))
     }
 
+    const join = () => {
+        history.push("/join");
+    }
+
     return (
         <Container className={"page"} maxWidth={"md"}>
-            <h3>Welcome {username}</h3>
-            <p>
-                <button onClick={create}>Create a new match</button>
-                <br/>
-                <Link to={"/join"}><button>Join a match</button></Link>
-            </p>
+            <Header title={`Welcome ${username}`} />
+            <div className={"page-content"}>
+                <Button variant={"outlined"} color={"primary"} onClick={create}>Create a new match</Button>
+                <br/><br/>
+                <Button variant={"outlined"} color={"primary"} onClick={join}>Join a match</Button>
+            </div>
         </Container>
 
     );

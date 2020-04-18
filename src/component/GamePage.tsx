@@ -6,6 +6,7 @@ import {PlayerRole} from "../model/PlayerRole";
 import JudgeView from "./JudgeView";
 import PlayerView from "./PlayerView";
 import Stomp from "stompjs";
+import {Header} from "./Header";
 
 
 const GamePage: React.FC = (props: any) => {
@@ -24,7 +25,7 @@ const GamePage: React.FC = (props: any) => {
 
     return (
         <Container className={"page"} maxWidth={"md"}>
-            <h3>Match {matchId}</h3>
+            <Header title={`${role === PlayerRole.JUDGE ? "Giudice" : "Giocatore"} ${matchId}`}/>
             {
                 role === PlayerRole.JUDGE ?
                     <JudgeView matchId={matchId} client={client}/> :

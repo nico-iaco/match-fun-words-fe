@@ -8,6 +8,7 @@ import {changeRole} from "../action/user.action";
 import {IQuestionCard} from "../model/IQuestionCard";
 import {getJudgeCard} from "../api/MatchApi";
 import {Button, Dialog, DialogTitle} from "@material-ui/core";
+import "../css/judgeCard.css"
 
 interface JudgeProps extends PropsWithChildren<any> {
     matchId: string,
@@ -56,22 +57,24 @@ const JudgeView: React.FC<JudgeProps> = ({matchId, client}) => {
 
     return (
         <div>
-            <div>GIUDICE</div>
             <div>
                 <div className={"judge-card-div"}>
                     {
                         judgeCard ?
-                            judgeCard?.text :
+                            judgeCard?.text.replace("{}", "___") :
                             <div/>
                     }
                 </div>
             </div>
-            {
-                answers ?
-                    answers.map((value, index) => (<AnswerCard key={index} text={value.text} role={PlayerRole.JUDGE}
-                                                               buttonFunction={() => choosePlayerCard(value)}/>)) :
-                    <div/>
-            }
+            <div className={"page-content"}>
+                {
+                    answers ?
+                        answers.map((value, index) => (<AnswerCard key={index} text={value.text} role={PlayerRole.JUDGE}
+                                                                   buttonFunction={() => choosePlayerCard(value)}/>)) :
+                        <div/>
+                }
+            </div>
+
             <Dialog onClose={() => {
             }} aria-labelledby="simple-dialog-title" open={roundFinished}>
                 <DialogTitle id="simple-dialog-title">Waiting for other player</DialogTitle>
