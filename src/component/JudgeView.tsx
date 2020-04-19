@@ -21,6 +21,7 @@ const JudgeView: React.FC<JudgeProps> = ({matchId, client}) => {
     const [answers, setAnswers] = useState<IAnswerCard[]>([]);
     const [subscriptionId, setSubscriptionId] = useState("")
     const [roundFinished, setRoundFinished] = useState(false);
+    const [pingId, setPingId] = useState();
     const dispatch = useDispatch()
 
 
@@ -40,6 +41,9 @@ const JudgeView: React.FC<JudgeProps> = ({matchId, client}) => {
                 setAnswers(prevState => [...prevState, answerReceived])
             })
             setSubscriptionId(() => id);
+            setPingId(() => setInterval(() => client.send("/"), 50000));
+        } else {
+            clearInterval(pingId);
         }
     }, [matchId, client.connected])
 
