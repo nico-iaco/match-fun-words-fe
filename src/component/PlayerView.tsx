@@ -25,7 +25,7 @@ const PlayerView: React.FC<PlayerProps> = ({matchId, client}) => {
     const [roundFinished, setRoundFinished] = useState(false);
     const [textToShow, setTextToShow] = useState<JSX.Element>(() => (<div/>));
     const [nextRole, setNextRole] = useState<PlayerRole>(PlayerRole.PLAYER);
-    const [pingId, setPingId] = useState();
+    const [pingId, setPingId] = useState<any>();
 
     useEffect(() => {
         if (client.connected) {
@@ -57,7 +57,7 @@ const PlayerView: React.FC<PlayerProps> = ({matchId, client}) => {
                 setRoundFinished(() => true);
 
             });
-            setPingId(() => setInterval(() => client.send("/"), 50000));
+            setPingId(setInterval(() => client.send("/"), 50000));
         } else {
             clearInterval(pingId);
         }
