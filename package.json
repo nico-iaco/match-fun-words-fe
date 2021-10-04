@@ -23,7 +23,7 @@
     "stompjs": "^2.3.3",
     "typescript": "^3.7.5"
   },
-  "proxy": "http://localhost:8080",
+  "proxy": "https://match-fun-words.herokuapp.com",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
