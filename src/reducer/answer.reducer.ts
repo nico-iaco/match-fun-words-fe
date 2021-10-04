@@ -5,20 +5,20 @@ const defaultAnswerState: IAnswerCard[] = []
 export const answerReducer = (state: IAnswerCard[] = defaultAnswerState, action: any) => {
     switch (action.type) {
         case "INIT":
-            return {
+            return [
                 ...action.answers
-            }
+            ]
         case "ADD":
-            return {
+            return [
                 ...state.concat(action.answer)
-            }
+            ]
         case "DELETE":
-            return {
-                ...state.filter(value => value !== action.answer)
-            }
+            return [
+                ...state.filter(value => value.text !== action.answer.text)
+            ]
         default:
-            return {
+            return [
                 ...state
-            }
+            ]
     }
 }

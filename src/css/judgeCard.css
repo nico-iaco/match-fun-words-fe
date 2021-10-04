@@ -1,0 +1,7 @@
+.judge-card-div {
+    width: 75%;
+    border: 2px solid deepskyblue;
+    border-radius: 15px;
+    padding: 25px;
+    margin: 10px auto 0;
+}

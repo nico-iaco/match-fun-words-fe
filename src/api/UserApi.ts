@@ -17,13 +17,13 @@ export const loginRequest = async (username: string, password: string) => {
         pwd: password
     };
 
-    return await axios.post(
+    return axios.post(
         userBaseUrl + apiConfig.LOGIN,
         body);
 };
 
 export const registerRequest = async (user: IUserRegister) => {
-    return await axios.post(
+    return axios.post(
         userBaseUrl + apiConfig.REGISTER,
         user
     );

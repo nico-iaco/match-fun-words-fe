@@ -8,7 +8,6 @@ export default () => {
         combineReducers({
             user: userReducer,
             answer: answerReducer
-            //TODO: Aggiungere reducer
         }),
         composeWithDevTools()
     );

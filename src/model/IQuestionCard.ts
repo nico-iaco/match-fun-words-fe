@@ -1,4 +1,4 @@
 export interface IQuestionCard {
-    question: string,
+    text: string,
     slot: number
 }
