@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Container} from "@material-ui/core";
 import {useSelector} from "react-redux";
 import {getUserRole} from "../selector/user.selector";
@@ -15,7 +15,7 @@ const GamePage: React.FC = (props: any) => {
     const matchId = props.match.params.matchId;
     const role: PlayerRole = useSelector(getUserRole);
 
-    const sockJs = new WebSocket("ws://localhost:8080/match-fun-words");
+    const sockJs = new WebSocket("wss://match-fun-words.herokuapp.com/match-fun-words");
     const client = Stomp.over(sockJs);
     client.connect({}, () => {
             console.log("connesso al websocket");

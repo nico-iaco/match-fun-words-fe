@@ -23,8 +23,9 @@ const PlayerView: React.FC<PlayerProps> = ({matchId, client}) => {
     const dispatch = useDispatch();
     const [waiting, setWaiting] = useState(false);
     const [roundFinished, setRoundFinished] = useState(false);
-    const [textToShow, setTextToShow] = useState<JSX.Element>(() => (<div/>))
-    const [nextRole, setNextRole] = useState<PlayerRole>(PlayerRole.PLAYER)
+    const [textToShow, setTextToShow] = useState<JSX.Element>(() => (<div/>));
+    const [nextRole, setNextRole] = useState<PlayerRole>(PlayerRole.PLAYER);
+    const [pingId, setPingId] = useState();
 
     useEffect(() => {
         if (client.connected) {
@@ -36,7 +37,6 @@ const PlayerView: React.FC<PlayerProps> = ({matchId, client}) => {
 
             const winnerSubscriber = client.subscribe(`/game/player/${matchId}`, message => {
                 const winnerCard: IAnswerCard = JSON.parse(message.body);
-                //TODO: Far comparire un modale con la scritta ha vinto oppure ritenta
                 if (winnerCard.playerId === playerId) {
                     setNextRole(PlayerRole.JUDGE);
                     setTextToShow(() => (
@@ -56,7 +56,10 @@ const PlayerView: React.FC<PlayerProps> = ({matchId, client}) => {
                 winnerSubscriber.unsubscribe();
                 setRoundFinished(() => true);
 
-            })
+            });
+            setPingId(() => setInterval(() => client.send("/"), 50000));
+        } else {
+            clearInterval(pingId);
         }
     }, [matchId, client.connected, playerId])
 
